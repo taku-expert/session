@@ -1,4 +1,4 @@
-= form_for @user, url: complete_signup_signup_index_path, method: :post do |f|
+= form_for @user, url: signup_index_path, method: :post do |f|
   = hidden_field_tag :current_step, 'step3'
   = f.fields_for :profile do |p|
 

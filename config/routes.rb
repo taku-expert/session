@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       get 'step1'
       post 'step2'
       post 'step3'
-      post 'complete_signup'
+      get 'complete_signup'
     end
   end
 
