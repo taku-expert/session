@@ -6,19 +6,15 @@ class SignupController < ApplicationController
   end
   
   def step2
-    @user = User.new(user_params)
     @profile = Profile.new(profile_params)
-    session[:email] = user_params[:email]
-    session[:name] = user_params[:name]
-    session[:family] = profile_params[:family]
-    # if @user.valid?
-    #   session[:email] = user_params[:email]
-    #   session[:name] = user_params[:name]
-    #   session[:family] = profile_params[:family]
-    #   render 'step3'
-    # else
-    #   redirect_to action: 'step1'
-    # end
+    if @user.save! && @profile.save!
+      session[:email] = user_params[:email]
+      session[:name] = user_params[:name]
+      session[:family] = profile_params[:family]
+      render 'step3'
+    else
+      redirect_to action: 'step1'
+    end
   end
 
   def step3
