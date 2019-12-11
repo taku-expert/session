@@ -1,15 +1,15 @@
 = form_for @user, url: step2_signup_index_path do |f|
   = hidden_field_tag :current_step, 'step1'
 
-  = f.label :email, "メールアドレス"
+  = f.label :email, "メールアドレス(email)"
   = f.text_field :email
 
-  = f.label :name, "name"
+  = f.label :name, "名前(name)"
   = f.text_field :name
 
   = f.fields_for :profile do |p|
 
-    = p.label :family, "お名前"
+    = p.label :family, "家族(family)"
     = p.text_field :family
 
   = f.submit '次' 

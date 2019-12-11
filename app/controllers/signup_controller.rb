@@ -17,6 +17,7 @@ class SignupController < ApplicationController
     session[:profile_attributes_after_step2].merge!(session[:profile_attributes_after_step1])  # step2のsessionにstep1のsessionの中身を合わせる。
     @user = User.new
     @user.build_profile
+    binding.pry
   end
 
   def create
@@ -37,7 +38,8 @@ class SignupController < ApplicationController
   private
   def user_params
     params.require(:user).permit(
-      :name, :email,
+      :name,
+      :email,
       profile_attributes: [:id, :family, :number, :city]
     )
   end
