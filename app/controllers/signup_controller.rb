@@ -6,12 +6,13 @@ class SignupController < ApplicationController
   end
   
   def step2
-    @profile = Profile.new(profile_params)
+    @user = User.new(user_params)
+    @profile = Profile.new(user_profile_params)
     if @user.save! && @profile.save!
       session[:email] = user_params[:email]
       session[:name] = user_params[:name]
       session[:family] = profile_params[:family]
-      render 'step3'
+      render 'signup/step3'
     else
       redirect_to action: 'step1'
     end
@@ -19,51 +20,43 @@ class SignupController < ApplicationController
 
   def step3
     @profile = Profile.new(profile_params)
-    # if @profile.valid?
-    #   session[:number] = profile_params[:number]
-    # else
-    #   redirect_to action: 'step2'
-    # end
+    if @profile.valid?
+    session[:number] = profile_params[:number]
+    else
+      redirect_to action: 'step2'
+    end
   end
 
   def create
-    @user = User.new(
-      family: session
-    )
     @profile = Profile.new(profile_params)
-    if @profile.valid?
-      session[:city] = profile_params[:city]
-      @user = User.new(
-        email: session[:email],
-        name: session[:name]
-      )
-      @profile = Profile.new(
-        family: session[:family],
-        number: session[:number],
-        city: session[:city]
-      )
-      @user.save
-      @profile.save
-      redirect_to complete_signup_signup_index_path
-    else
-      render '/signup/step1'
-    end
+    @user = User.new(
+      name: session[:name]
+    )
   end
-end
 
-private
+  private
 
-def user_params
-  params.require(:user).permit(
-    :name,
-    :email
-  )
-end
+  def user_params
+    params.require(:user).permit(
+      :name,
+      :email
+    ).merge(password: 111111,password_confirmation: 111111)
+  end
 
-def profile_params
-  params.require(:user).require(:profile).permit(
-    :family,
-    :number,
-    :city
-  )
+  def profile_params
+    params.require(:profile).permit(
+      :family,
+      :number,
+      :city
+    )
+  end
+
+  def user_profile_params
+    params.require(:user).require(:profile).permit(
+      :family,
+      :number,
+      :city
+    )
+  end
+
 end
