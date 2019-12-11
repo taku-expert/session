@@ -39,6 +39,10 @@
    cursor: pointer;
  }
 
+ .submit:hover {
+   background-color: rgba(0, 128, 0, 0.288);
+ }
+
  h1 {
    font-size: 40px;
    display: block;
