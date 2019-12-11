@@ -3,13 +3,22 @@
 
   = f.label :email, "メールアドレス(email)"
   = f.text_field :email
+  
+  %br
+  %br
 
   = f.label :name, "名前(name)"
   = f.text_field :name
+
+  %br
+  %br
 
   = f.fields_for @profile do |p|
 
     = p.label :family, "家族(family)"
     = p.text_field :family
 
-  = f.submit '次' 
+  %br
+  %br
+
+  = f.submit '次のページへ', class: "submit"

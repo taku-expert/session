@@ -1,2 +1,29 @@
-= link_to step1_signup_index_path do
-  ○
+.btn
+  = link_to step1_signup_index_path do
+    登録！
+
+
+.user-puts.btn
+  %h1 userモデル
+  - @users.each do |user|
+    .boxes
+      .name.box
+        %p name
+        = user.name
+      .email.box
+        %p email
+        = user.email
+
+.profile-puts.btn
+  %h1 profileモデル
+  - @profiles.each do |profile|
+    .boxes
+      .family.box
+        %p family
+        = profile.family
+      .number.box
+        %p number
+        = profile.number
+      .city.box
+        %p city
+        = profile.city
