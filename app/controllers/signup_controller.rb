@@ -8,65 +8,66 @@ class SignupController < ApplicationController
   def step2
     @user = User.new(user_params)
     @profile = Profile.new(profile_params)
-    if @user.valid? && @profile.valid?
-      session[:email] = user_params[:email]
-      session[:name] = user_params[:name]
-      session[:family] = profile_params[:family]
-      render 'step3'
-    else
-      redirect_to action: 'step1'
+    session[:email] = user_params[:email]
+    session[:name] = user_params[:name]
+    session[:family] = profile_params[:family]
+    # if @user.valid?
+    #   session[:email] = user_params[:email]
+    #   session[:name] = user_params[:name]
+    #   session[:family] = profile_params[:family]
+    #   render 'step3'
+    # else
+    #   redirect_to action: 'step1'
+    # end
   end
 
   def step3
-    @profile _ Profile.new
-    session[:number] = user_params[:profile_attributes][:number]
-    @user = User.new
-    @user.build_profile
+    @profile = Profile.new(profile_params)
+    # if @profile.valid?
+    #   session[:number] = profile_params[:number]
+    # else
+    #   redirect_to action: 'step2'
+    # end
   end
 
   def create
-    @profile _ Profile.new(profileparams)
-    if  [pr]
-    session[:city] = user_params[:profile_attributes][:city]
     @user = User.new(
-      email: session[:email],
-      name: session[:name]
-      # family: session[:family],
-      # number: session[:number],
-      # city: session[:city]
+      family: session
     )
-    binding.pry
-    @user.build_profile(
-      family: session[:family],
-      number: session[:number],
-      city: session[:city]
-    )
-    binding.pry
-    if @user.save!
-      binding.pry
-      session[:id] = @user.id  #　ここでidをsessionに入れることでログイン状態に持っていける。
+    @profile = Profile.new(profile_params)
+    if @profile.valid?
+      session[:city] = profile_params[:city]
+      @user = User.new(
+        email: session[:email],
+        name: session[:name]
+      )
+      @profile = Profile.new(
+        family: session[:family],
+        number: session[:number],
+        city: session[:city]
+      )
+      @user.save
+      @profile.save
       redirect_to complete_signup_signup_index_path
     else
       render '/signup/step1'
     end
   end
-  
-  
-  private
-  def user_params
-    params.require(:user).permit(
-      :name,
-      :email
-    )
-  end
+end
 
-  def profile_params
-    params.require(:profile).permit(
-      :id,
-      :family,
-      :number,
-      :city
-    )
-  end
+private
 
+def user_params
+  params.require(:user).permit(
+    :name,
+    :email
+  )
+end
+
+def profile_params
+  params.require(:user).require(:profile).permit(
+    :family,
+    :number,
+    :city
+  )
 end

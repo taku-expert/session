@@ -7,7 +7,7 @@
   = f.label :name, "名前(name)"
   = f.text_field :name
 
-  = f.fields_for :profile do |p|
+  = f.fields_for @profile do |p|
 
     = p.label :family, "家族(family)"
     = p.text_field :family
