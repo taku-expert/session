@@ -41,8 +41,8 @@ class SignupController < ApplicationController
         number: session[:number],
         city: session[:city]
       )
-      @user.save!
-      @profile.save!
+      @user.save
+      @profile.save
       redirect_to action: 'index'
     else
       redirect_to action: 'step1'
