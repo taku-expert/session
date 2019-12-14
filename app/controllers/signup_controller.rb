@@ -1,48 +1,55 @@
 class SignupController < ApplicationController
 
+
   def step1
+    # step1.html.haml内のform_forで利用するためのインスタンス変数の作成
+    # @user は　Userモデルのnewアクション
     @user = User.new
+    # @profile は　Userモデルのnewアクション
     @profile = Profile.new
+
+    # この時点では@user,@profileはnewアクションで生成されただけの
+    # 空のインスタンスなのでbinding.pryの結果は全て: nill
   end
+
   
   def step2
-    @user = User.new(user_params)
-    @profile = Profile.new(user_profile_params)
-    if @user.valid? && @profile.valid?
-      session[:email] = user_params[:email]
-      session[:name] = user_params[:name]
-      session[:family] = user_profile_params[:family]
-    else
-      redirect_to action: 'step1'
-    end
+    # sessionの各キーへ代入
+    session[:email] = user_params[:email]
+    session[:name] = user_params[:name]
+    session[:family] = user_profile_params[:family]
+
+    # step2.html.haml内のform_forで利用するためのインスタンス変数の作成
+    @profile = Profile.new
   end
 
   def step3
-    @profile = Profile.new(profile_params)
-    if @profile.valid?
-      session[:number] = profile_params[:number]
-    else
-      redirect_to action: 'step1'
-    end
+    # sessionのkeyへ代入
+    session[:number] = profile_params[:number]
+
+    # step3.html.haml内のform_forで利用するためのインスタンス変数の作成
+    @profile = Profile.new
   end
 
+
   def create
-    @profile = Profile.new(profile_params)
+    # sessionのkeyへ代入
     session[:city] = profile_params[:city]
-    if @profile.valid?
-      @user = User.new(
-        name: session[:name],
-        email: session[:email],
-        password: 111111,
-        password_confirmation: 111111
-      )
-      @profile = Profile.new(
-        family: session[:family],
-        number: session[:number],
-        city: session[:city]
-      )
+    @user = User.new(
+      name: session[:name],
+      email: session[:email],
+      password: 111111,
+      password_confirmation: 111111
+    )
+    @profile = Profile.new(
+      family: session[:family],
+      number: session[:number],
+      city: session[:city]
+    )
+    if @user.save! && @profile.save!
       @user.save
       @profile.save
+      session.clear
       redirect_to action: 'index'
     else
       redirect_to action: 'step1'
@@ -66,7 +73,6 @@ class SignupController < ApplicationController
 
   def profile_params
     params.require(:profile).permit(
-      :family,
       :number,
       :city
     )
@@ -74,9 +80,7 @@ class SignupController < ApplicationController
 
   def user_profile_params
     params.require(:user).require(:profile).permit(
-      :family,
-      :number,
-      :city
+      :family
     )
   end
 
