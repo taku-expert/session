@@ -1,5 +1,9 @@
 class SignupController < ApplicationController
 
+  def index
+    @users = User.all
+    @profiles = Profile.all
+  end
 
   def step1
     # step1.html.haml内のform_forで利用するためのインスタンス変数の作成
@@ -46,20 +50,16 @@ class SignupController < ApplicationController
       number: session[:number],
       city: session[:city]
     )
-    if @user.save! && @profile.save!
+    if @user.valid? && @profile.valid?
       @user.save
       @profile.save
-      session.clear
       redirect_to action: 'index'
     else
       redirect_to action: 'step1'
     end
   end
 
-  def index
-    @users = User.all
-    @profiles = Profile.all
-  end
+
 
 
   private

@@ -1,8 +1,6 @@
 .btn
   = link_to step1_signup_index_path do
-    登録！
-
-
+    登録してみる！
 .user-puts.btn
   %h1 userモデル
   - @users.each do |user|
@@ -13,7 +11,6 @@
       .email.box
         %p email
         = user.email
-
 .profile-puts.btn
   %h1 profileモデル
   - @profiles.each do |profile|
@@ -27,3 +24,9 @@
       .city.box
         %p city
         = profile.city
+
+%a.btn.btn-primary{:href => "#", :role => "button"} Link
+%button.btn.btn-primary{:type => "submit"} Button
+%input.btn.btn-primary{:type => "button", :value => "Input"}/
+%input.btn.btn-primary{:type => "submit", :value => "Submit"}/
+%input.btn.btn-primary{:type => "reset", :value => "Reset"}/

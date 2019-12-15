@@ -1,7 +1,6 @@
 = form_for @profile, url: step3_signup_index_path do |f|
-  = hidden_field_tag :current_step, 'step2'
 
   = f.label :number, "携帯電話の番号"
   = f.text_field :number
 
-  = f.submit 'SMSを送信する', class: "submit"
+  = f.submit '住所の登録へすすむ', class: "submit"

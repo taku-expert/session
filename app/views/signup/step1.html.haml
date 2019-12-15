@@ -1,24 +1,17 @@
 = form_for @user, url: step2_signup_index_path do |f|
-  = hidden_field_tag :current_step, 'step1'
 
   = f.label :email, "メールアドレス(email)"
   = f.text_field :email
-  
-  %br
   %br
 
   = f.label :name, "名前(name)"
   = f.text_field :name
-
-  %br
   %br
 
   = f.fields_for @profile do |p|
 
     = p.label :family, "家族(family)"
     = p.text_field :family
+    %br
 
-  %br
-  %br
-
-  = f.submit '次のページへ', class: "submit"
+  = f.submit '電話番号の登録へすすむ', class: "submit"

@@ -1,7 +1,6 @@
 = form_for @profile, url: signup_index_path, method: :post do |f|
-  = hidden_field_tag :current_step, 'step3'
 
   = f.label :city, "市区町村"
   = f.text_field :city
-    
+
   = f.submit '登録を完了する', class: "submit"
