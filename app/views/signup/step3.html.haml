@@ -1,6 +1,9 @@
-= form_for @profile, url: signup_index_path, method: :post do |f|
-
-  = f.label :city, "市区町村"
-  = f.text_field :city
-
-  = f.submit '登録を完了する', class: "submit"
+.forms
+  = form_for @profile, url: signup_index_path, method: :post do |f|
+    
+    .form-box
+      = f.label :city, "市区町村"
+      = f.text_field :city, class: "form"
+    
+    .form-box
+      = f.submit '登録を完了する', class: "submit"

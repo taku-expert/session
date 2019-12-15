@@ -1,17 +1,15 @@
-= form_for @user, url: step2_signup_index_path do |f|
+.forms
+  = form_for @user, url: step2_signup_index_path do |f|
+    .form-box
+      = f.label :email, "メールアドレス(email)"
+      = f.text_field :email, class: "form"
+    .form-box
+      = f.label :name, "名前(name)"
+      = f.text_field :name, class: "form"
 
-  = f.label :email, "メールアドレス(email)"
-  = f.text_field :email
-  %br
-
-  = f.label :name, "名前(name)"
-  = f.text_field :name
-  %br
-
-  = f.fields_for @profile do |p|
-
-    = p.label :family, "家族(family)"
-    = p.text_field :family
-    %br
-
-  = f.submit '電話番号の登録へすすむ', class: "submit"
+    = f.fields_for @profile do |p|
+      .form-box
+        = p.label :family, "家族(family)"
+        = p.text_field :family, class: "form"
+    .form-box
+      = f.submit '次のページへ', class: "submit"

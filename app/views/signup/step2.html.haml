@@ -1,6 +1,9 @@
-= form_for @profile, url: step3_signup_index_path do |f|
-
-  = f.label :number, "携帯電話の番号"
-  = f.text_field :number
-
-  = f.submit '住所の登録へすすむ', class: "submit"
+.forms
+  = form_for @profile, url: step3_signup_index_path do |f|
+    
+    .form-box
+      = f.label :number, "携帯電話の番号"
+      = f.text_field :number, class: "form"
+    
+    .form-box
+      = f.submit '住所の登録へすすむ', class: "submit"
