@@ -61,11 +61,10 @@ class SignupController < ApplicationController
 
   def destroy
     profile = Profile.find(params[:id])
+    user = User.find(params[:id])
     profile.destroy
+    user.destroy
   end
-
-
-
 
   private
 
