@@ -7,9 +7,9 @@ class SignupController < ApplicationController
 
   def step1
     # step1.html.haml内のform_forで利用するためのインスタンス変数の作成
-    # @user は　Userモデルのnewアクション
+    # @user は Userモデルのnewアクション
     @user = User.new
-    # @profile は　Userモデルのnewアクション
+    # @profile は Userモデルのnewアクション
     @profile = Profile.new
 
     # この時点では@user,@profileはnewアクションで生成されただけの
