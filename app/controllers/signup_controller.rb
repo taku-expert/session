@@ -7,9 +7,7 @@ class SignupController < ApplicationController
 
   def step1
     # step1.html.haml内のform_forで利用するためのインスタンス変数の作成
-    # @user は Userモデルのnewアクション
     @user = User.new
-    # @profile は Userモデルのnewアクション
     @profile = Profile.new
 
     # この時点では@user,@profileはnewアクションで生成されただけの
@@ -28,7 +26,7 @@ class SignupController < ApplicationController
   end
 
   def step3
-    # sessionのkeyへ代入
+    # sessionの各キーへ代入
     session[:number] = profile_params[:number]
 
     # step3.html.haml内のform_forで利用するためのインスタンス変数の作成
@@ -37,8 +35,10 @@ class SignupController < ApplicationController
 
 
   def create
-    # sessionのkeyへ代入
+    # sessionの各キーへ代入
     session[:city] = profile_params[:city]
+
+    # sessionから保存すべきインスタンス変数へ再代入していく。
     @user = User.new(
       name: session[:name],
       email: session[:email],
@@ -50,11 +50,13 @@ class SignupController < ApplicationController
       number: session[:number],
       city: session[:city]
     )
+    # もし再代入されたものがバリデーションにひっかからなければ保存。
     if @user.valid? && @profile.valid?
       @user.save
       @profile.save
       redirect_to action: 'index'
     else
+      # 保存できなかった(バリデーションにひかかった)場合は1ページ目からやり直し。
       redirect_to action: 'step1'
     end
   end
